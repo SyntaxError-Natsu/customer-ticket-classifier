@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+ticket_env/
+venv/
+*.venv
+env/
+ENV/
+.env
+
+# IDE / Editor specific
+.vscode/
+.idea/
+*.DS_Store
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# If you decide NOT to track large datasets or generated models
+# (though your README implies models are tracked, which is fine for this project size)
+# data/large_dataset.csv
+# models/*.pkl # If you prefer to generate them on clone rather than store them
