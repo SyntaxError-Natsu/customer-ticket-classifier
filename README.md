@@ -82,19 +82,39 @@ ticket_classifier/
 ```
 ---
 
-🌐 **Web Interface (Gradio)**
+<h2>🌐 Web Interface (Gradio)</h2>
 
-The application provides an interactive web interface built with Gradio for easy interaction with the ticket classification system.
+<p>The application provides an interactive web interface built with Gradio for easy interaction with the ticket classification system.</p>
 
-*   **Home Page / About:** Provides an overview of the application, its capabilities, and how to use the different features.
-    *   `![Gradio - Home Page](./screenshots/Home Page.png)`
-    *   `![Gradio - About Page Information](./screenshots/About Page.png)` *(Describes features and usage)*
-*   **Single Ticket Prediction:** Allows users to input a single ticket text for real-time classification and entity extraction. The results, including predicted issue type, urgency, extracted entities, and model confidence, are displayed directly on the interface.
-    *   `![Gradio - Single Ticket Prediction](./screenshots/Single Ticket Prediction.png)`
-*   **Batch Processing:** Enables users to upload a CSV or Excel file containing multiple tickets. 
-    *   `![Gradio - Batch Processing Upload Interface](./screenshots/Batch Processing.png)`
-    *   The system processes each ticket and provides a downloadable file (typically CSV) containing the original ticket text along with the predictions and extracted entities for all tickets.
-    *   `![Gradio - Example of Batch Processing Output File/Table](./screenshots/Output_Batch.png)` *(Illustrates the structure of the output from batch processing)*
+<ul>
+    <li>
+        <p><strong>Home Page / About:</strong> Provides an overview of the application, its capabilities, and how to use the different features.</p>
+        <p align="center">
+            <img src="./screenshots/Home Page.png" alt="Gradio - Home Page" width="600"/>
+        </p>
+        <p align="center">
+            <img src="./screenshots/About Page.png" alt="Gradio - About Page Information" width="600"/>
+            <br/><em>(Describes features and usage)</em>
+        </p>
+    </li>
+    <li>
+        <p><strong>Single Ticket Prediction:</strong> Allows users to input a single ticket text for real-time classification and entity extraction. The results, including predicted issue type, urgency, extracted entities, and model confidence, are displayed directly on the interface.</p>
+        <p align="center">
+            <img src="./screenshots/Single Ticket Prediction.png" alt="Gradio - Single Ticket Prediction" width="600"/>
+        </p>
+    </li>
+    <li>
+        <p><strong>Batch Processing:</strong> Enables users to upload a CSV or Excel file containing multiple tickets.</p>
+        <p align="center">
+            <img src="./screenshots/Batch Processing.png" alt="Gradio - Batch Processing Upload Interface" width="600"/>
+        </p>
+        <p>The system processes each ticket and provides a downloadable file (typically CSV) containing the original ticket text along with the predictions and extracted entities for all tickets.</p>
+        <p align="center">
+            <img src="./screenshots/Output_Batch.png" alt="Gradio - Example of Batch Processing Output File/Table" width="600"/>
+            <br/><em>(Illustrates the structure of the output from batch processing)</em>
+        </p>
+    </li>
+</ul>
 
 ---
 
@@ -151,8 +171,7 @@ Listed in `requirements.txt`. Key libraries: `pandas`, `scikit-learn`, `nltk`, `
 ---
 
 ## 📄 License
-
-This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
+This project was created for educational purposes as part of an assignment. Feel free to use, modify, and adapt the code for learning and development..
 
 ## 👨‍💻 Developer
 
