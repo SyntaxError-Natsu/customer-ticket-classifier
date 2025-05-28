@@ -1,425 +1,166 @@
-Customer Support Ticket Classifier
-A comprehensive machine learning pipeline that classifies customer support tickets by issue type and urgency level, and extracts key entities using traditional NLP and ML techniques.
+# Customer Support Ticket Classifier
 
-📋 Project Overview
-This project implements a complete ticket classification system that:
+Automated classification of customer support tickets by issue type and urgency, with key entity extraction. Features an interactive web interface.
 
-Classifies tickets into 7 issue types (Billing Problem, Installation Issue, Product Defect, Account Access, General Inquiry, Wrong Item, Late Delivery)
+## 📋 **Key Features:**
+*   **Issue Classification:** Identifies 7 types (e.g., Billing, Product Defect).
+*   **Urgency Prediction:** Low, Medium, High.
+*   **Entity Extraction:** Products, dates, order numbers.
+*   **Interactive UI:** Real-time & batch processing via Gradio.
 
-Predicts urgency levels (Low, Medium, High) based on ticket content
+---
 
-Extracts entities including products, dates, order numbers, and complaint keywords
+## 🚀 **Quick Start**
 
-Provides an interactive web interface for real-time predictions and batch processing
+**1. Prerequisites:**
+*   Python 3.8+
+*   Git
 
-🏗️ Project Structure
-```
-ticket_classifier/
-├── data/
-│   └── ai_dev_assignment_tickets_complex_1000.xlsx    # Input dataset
-├── models/                                            # Saved models and objects
-│   ├── processed_data.csv                            # Cleaned dataset
-│   ├── issue_classifier.pkl                         # Trained issue classifier
-│   ├── urgency_classifier.pkl                       # Trained urgency classifier
-│   ├── tfidf_vectorizer.pkl                         # TF-IDF vectorizer
-│   ├── label_encoders.pkl                           # Label encoders
-│   └── scaler.pkl                                   # Feature scaler
-├── src/
-│   ├── data_preprocessing.py                        # Text cleaning and preprocessing
-│   ├── feature_engineering.py                      # Feature creation and encoding
-│   ├── model_training.py                           # Model training and evaluation
-│   ├── entity_extraction.py                        # Rule-based entity extraction
-│   ├── ticket_classifier.py                        # Main prediction pipeline
-│   └── gradio_app.py                              # Web interface
-├── notebooks/
-│   └── main_analysis.ipynb                         # Complete pipeline execution
-├── requirements.txt                                 # Python dependencies
-└── README.md                                       # This documentation
-```
+**2. Setup & Installation:**
+```bash
+# Clone or download the project, then navigate to its root directory
+# cd path/to/ticket_classifier
 
-🚀 Quick Start Guide
-1. Environment Setup
-```
-# Create project directory
-mkdir ticket_classifier
-cd ticket_classifier
-
-# Create virtual environment (recommended)
+# Create & activate virtual environment
 python -m venv ticket_env
-# On Windows:
-ticket_env\Scripts\activate
-# On macOS/Linux:
-source ticket_env/bin/activate
+# Windows: ticket_env\Scripts\activate
+# macOS/Linux: source ticket_env/bin/activate
 
 # Install dependencies
-pip install pandas numpy scikit-learn nltk textblob matplotlib seaborn openpyxl wordcloud plotly gradio imbalanced-learn jupyter
+pip install -r requirements.txt
+
+# Download NLTK data
+python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger')"
+
+# Place dataset: ai_dev_assignment_tickets_complex_1000.xlsx into data/
 ```
 
-2. Download NLTK Data
-```
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
-```
+**3. Model Training (Choose one):**
 
-3. Project Setup
-Create the folder structure as shown above
+*   **A) Jupyter Notebook (Recommended):**
+    ```
+    cd notebooks
+    jupyter notebook
+    ```
+    Open `main_analysis.ipynb` and run all cells.
 
-Place your Excel file in the data/ folder
+*   **B) Python Scripts:**
+    ```
+    cd src
+    python data_preprocessing.py
+    python feature_engineering.py
+    python model_training.py
+    ```
+    *Models are saved to the `models/` directory.*
 
-Copy all source files to their respective directories
-
-4. Training the Models
-Option A: Using Jupyter Notebook (Recommended)
-```
-cd notebooks
-jupyter notebook
-# Open main_analysis.ipynb and run all cells
-```
-Option B: Using Python Scripts
-```
-cd src
-python data_preprocessing.py
-python feature_engineering.py
-python model_training.py
-```
-
-5. Running the Web Interface
+**4. Run Web Interface:**
 ```
 cd src
 python gradio_app.py
 ```
+Access at: `http://localhost:7860`
 
-The interface will be available at http://localhost:7860
+---
 
-🔧 Technical Implementation
-Data Preprocessing (data_preprocessing.py)
-Key Features:
-
-Text Normalization: Converts to lowercase, removes special characters
-
-Tokenization: Uses NLTK word tokenizer
-
-Lemmatization: Reduces words to base forms
-
-Stopword Removal: Filters common English stopwords
-
-Sentiment Analysis: Calculates polarity using TextBlob
-
-Missing Data Handling: Fills null values appropriately
-
-Design Choices:
-
-Preserved punctuation (!, ?, .) as they indicate urgency/questions
-
-Used lemmatization over stemming for better word representation
-
-Added sentiment as it correlates with urgency levels
-
-Feature Engineering (feature_engineering.py)
-Text Features:
-
-TF-IDF Vectorization: 2000 features, 1-2 grams, removes rare/common terms
-
-Text Statistics: Length, word count, sentiment score
-
-Engineered Features:
-
-Complaint Keywords: 22 problem-related terms (broken, error, etc.)
-
-Urgency Indicators: High/medium/low urgency keyword counts
-
-Domain-Specific: Billing and installation keyword indicators
-
-Punctuation Features: Question marks, exclamation marks, caps ratio
-
-Length Categories: Short (<10 words) and long (>50 words) indicators
-
-Feature Selection Justification:
-
-TF-IDF captures semantic content effectively
-
-Keyword features provide domain-specific signals
-
-Punctuation features indicate emotional state and urgency
-
-Length features help distinguish query types
-
-Multi-Task Learning (model_training.py)
-Models Tested:
-
-Random Forest Classifier
-
-Logistic Regression
-
-Training Strategy:
-
-Class Balancing: SMOTE oversampling for minority classes
-
-Cross-Validation: 5-fold stratified CV for robust evaluation
-
-Model Selection: Best performing model on test set
-
-Performance Optimization:
-
-Hyperparameter tuning for Random Forest (n_estimators, max_depth)
-
-Class weights for handling imbalanced data
-
-Feature scaling for numerical features
-
-Entity Extraction (entity_extraction.py)
-Rule-Based Approach:
-
-Product Detection: Pattern matching against product list
-
-Date Extraction: Multiple regex patterns for various date formats
-
-Order Numbers: Patterns for #12345, order 12345, etc.
-
-Complaint Keywords: Comprehensive problem indicator list
-
-Urgency Indicators: Emergency and priority-related terms
-
-Support Contact: Detection of previous interaction mentions
-
-Pattern Examples:
+## 🏗️ **Project Structure**
+```text
+ticket_classifier/
+├── data/
+│   └── ai_dev_assignment_tickets_complex_1000.xlsx
+├── models/              # Saved models & objects
+├── src/                 # Source code
+│   ├── data_preprocessing.py
+│   ├── feature_engineering.py
+│   ├── model_training.py
+│   ├── entity_extraction.py
+│   ├── ticket_classifier.py # Main pipeline
+│   └── gradio_app.py      # Web interface
+├── notebooks/
+│   └── main_analysis.ipynb  # Full analysis & training
+├── requirements.txt
+└── README.md
 ```
-# Date patterns
-r'\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b'  # "03 March"
-r'\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b'  # "03/15/2024"
+---
 
-# Order patterns
-r'#\d{5,6}'  # "#29224"
-r'order\s*#?\s*\d{5,6}'  # "order 29224"
-```
-Integration (ticket_classifier.py)
-Main Pipeline:
+## 🌐 **Web Interface (Gradio)**
 
-Text Preprocessing: Clean and tokenize input
+Provides an interactive way to use the classifier:
 
-Feature Generation: Create TF-IDF and engineered features
+*   **Home Page / About:** Provides an overview of the application and its capabilities.
+    *   `![Gradio - Home Page](./screenshots/Home Page.png)`
+    *   *(If "About Page.png" is distinct and offers more detail, you could add it as well: `![Gradio - About Page](./screenshots/About Page.png)`)*
+*   **Single Ticket Prediction:** Allows users to input a single ticket text for real-time classification and entity extraction. The results, including predicted issue type, urgency, extracted entities, and model confidence, are displayed directly.
+    *   `![Gradio - Single Ticket Prediction](./screenshots/Single Ticket Prediction.png)`
+*   **Batch Processing:** Enables users to upload a CSV or Excel file containing multiple tickets. The system processes each ticket and provides a downloadable file with the predictions and extracted entities for all tickets.
+    *   `![Gradio - Batch Processing Upload](./screenshots/Batch Processing.png)`
+    *   `![Gradio - Batch Processing Output Example](./screenshots/Output_Batch.png)` *(This shows an example of the output after batch processing)*
 
-Prediction: Use trained models for classification
+---
 
-Entity Extraction: Apply rule-based extraction
+## 🔧 **Core Technical Approach**
 
-Output Formatting: Return structured JSON result
+*   **Preprocessing (`data_preprocessing.py`):** Text normalization (lowercase, special char removal while preserving `!?.`), tokenization, lemmatization (NLTK), stopword removal, TextBlob sentiment analysis.
+*   **Feature Engineering (`feature_engineering.py`):**
+    *   **Text:** TF-IDF (2000 features, 1-2 n-grams), text length, word count, sentiment.
+    *   **Engineered:** Counts of complaint/urgency/domain keywords, punctuation features (caps ratio, `?!` counts), length categories.
+*   **Modeling (`model_training.py`):**
+    *   Separate Random Forest classifiers for issue type and urgency.
+    *   SMOTE for class imbalance, 5-fold stratified CV, hyperparameter tuning.
+*   **Entity Extraction (`entity_extraction.py`):** Rule-based (regex) for products, dates, order numbers, complaint/urgency keywords.
 
-Error Handling:
+---
 
-Graceful degradation for missing models
+## 🎯 **Key Design Choices**
 
-Default predictions for edge cases
+*   **Traditional ML (Random Forest):** Chosen for interpretability, faster training, and good performance for this dataset size, avoiding deep learning complexity.
+*   **Separate Models (Issue & Urgency):** Allows independent optimization and better feature relevance for each task.
+*   **Rule-Based Entity Extraction:** High precision for structured data, interpretable, no extra training data needed.
+*   **Hybrid Feature Engineering:** Combines TF-IDF's semantic capture with domain-specific engineered features.
 
-Comprehensive exception handling
+---
 
-📊 Model Performance
-Issue Type Classification
-Best Model: Random Forest
+## 📈 **Performance Summary**
+*   **Issue Classification:** 60-80% accuracy (Random Forest).
+*   **Urgency Classification:** 55-75% accuracy (Random Forest).
+*   *(Detailed metrics in `notebooks/main_analysis.ipynb`)*
 
-Accuracy: 60-80% (varies by class balance)
+## ⚠️ **Limitations:**
+*   Model performance capped by traditional ML and class imbalance.
+*   Domain-specific; requires retraining for new contexts.
+*   English only. Rule-based NER has limited flexibility.
 
-Cross-Validation: 5-fold stratified
+## 🔮 **Future Improvements:**
+*   **Short-Term:** Enhance regex, expand keywords,  and further tune.
+*   **Long-Term:** Explore Deep Learning (BERT), advanced NER, active learning, multilingual support.
 
-Classes: 7 issue types
+---
 
-Urgency Level Classification
-Best Model: Random Forest
+## 📝 **Dependencies**
+Listed in `requirements.txt`. Key libraries: `pandas`, `scikit-learn`, `nltk`, `textblob`, `gradio`, `imbalanced-learn`.
 
-Accuracy: 55-75% (varies by class balance)
+---
 
-Cross-Validation: 5-fold stratified
+## 🤝 **Contributing**
+1.  Fork the repository.
+2.  Create a feature branch (`git checkout -b feature/YourImprovement`).
+3.  Commit your changes (`git commit -m 'Add some YourImprovement'`).
+4.  Push to the branch (`git push origin feature/YourImprovement`).
+5.  Open a Pull Request.
 
-Classes: 3 urgency levels (Low, Medium, High)
+---
 
-Entity Extraction
-Approach: Rule-based pattern matching
+## 📄 License
 
-Precision: High for structured entities (order numbers, dates)
+This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
 
-Coverage: Comprehensive keyword lists for domain-specific terms
+## 👨‍💻 Developer
 
-🎯 Key Design Decisions
-1. Traditional ML vs Deep Learning
-Choice: Traditional ML (Random Forest, Logistic Regression)
-Rationale:
+Developed with ❤️ by [Priyanshu Kumar](https://github.com/SyntaxError-Natsu)
 
-Interpretable results
+---
 
-Faster training and inference
+⭐ Star this repository if you found it helpful!
 
-Sufficient performance for the task
 
-Lower computational requirements
-
-2. Separate Models vs Multi-Output
-Choice: Separate models for issue type and urgency
-Rationale:
-
-Different feature importance for each task
-
-Independent optimization
-
-Better handling of class imbalances
-
-3. Rule-Based vs ML Entity Extraction
-Choice: Rule-based pattern matching
-Rationale:
-
-High precision for structured data
-
-Interpretable and debuggable
-
-No additional training data required
-
-Easy to extend with new patterns
-
-4. Feature Engineering Strategy
-Choice: Combination of TF-IDF and engineered features
-Rationale:
-
-TF-IDF captures semantic content
-
-Engineered features add domain knowledge
-
-Balanced approach between automation and expertise
-
-🌐 Gradio Web Interface
-Features
-Single Ticket Prediction: Real-time classification and entity extraction
-
-Batch Processing: Upload CSV/Excel files for multiple tickets
-
-Confidence Scores: Model certainty indicators
-
-JSON Export: Structured output for integration
-
-Example Tickets: Pre-loaded test cases
-
-Design Principles
-Theme Compatibility: Works in both light and dark modes
-
-Responsive Layout: Equal-height columns for proper alignment
-
-Clear Visualization: Color-coded results with high contrast
-
-User-Friendly: Intuitive interface with helpful examples
-
-📈 Evaluation Results
-Confusion Matrices
-Generated automatically during training showing:
-
-True vs predicted classifications
-
-Class-wise performance
-
-Misclassification patterns
-
-Classification Reports
-Detailed metrics including:
-
-Precision, Recall, F1-score per class
-
-Macro and weighted averages
-
-Support (number of samples per class)
-
-Visualizations
-Issue type and urgency distributions
-
-Text length and sentiment distributions
-
-Feature importance plots
-
-Word count vs sentiment scatter plots
-
-⚠️ Limitations
-Model Limitations
-Performance Ceiling: Traditional ML may not capture complex semantic relationships
-
-Class Imbalance: Some issue types have limited training data
-
-Domain Specificity: Trained on specific product/service context
-
-Language Support: English only
-
-Entity Extraction Limitations
-Rule Dependency: Relies on predefined patterns
-
-Context Ignorance: May extract irrelevant matches
-
-Product List: Limited to predefined product names
-
-Date Ambiguity: May misinterpret relative dates
-
-System Limitations
-Static Models: Require retraining for new patterns
-
-Scalability: Single-threaded processing
-
-Memory Usage: Loads all models in memory
-
-🔮 Future Improvements
-Short Term
-Enhanced Patterns: More comprehensive regex patterns
-
-Product Expansion: Larger product vocabulary
-
-Performance Tuning: Hyperparameter optimization
-
-Error Analysis: Detailed failure case analysis
-
-Long Term
-Deep Learning: BERT/RoBERTa for better text understanding
-
-Named Entity Recognition: Advanced NER models
-
-Active Learning: Continuous improvement with user feedback
-
-Multilingual Support: Support for multiple languages
-
-Real-time Learning: Online model updates
-
-📝 Dependencies
-```
-pandas>=2.0.0          # Data manipulation
-numpy>=1.24.0          # Numerical computing
-scikit-learn>=1.3.0    # Machine learning
-nltk>=3.8.1            # Natural language processing
-textblob>=0.17.1       # Sentiment analysis
-matplotlib>=3.7.0      # Plotting
-seaborn>=0.12.0        # Statistical visualization
-openpyxl>=3.1.0        # Excel file handling
-wordcloud>=1.9.0       # Word cloud generation
-plotly>=5.15.0         # Interactive plots
-gradio>=4.0.0          # Web interface
-imbalanced-learn>=0.11.0  # SMOTE sampling
-jupyter>=1.0.0         # Notebook environment
-```
-🤝 Contributing
-Fork the repository
-
-Create a feature branch (git checkout -b feature/improvement)
-
-Make changes and test thoroughly
-
-Commit with clear messages (git commit -m 'Add new feature')
-
-Push to branch (git push origin feature/improvement)
-
-Create a Pull Request
-
-📄 License
-This project is created for educational purposes as part of an AI internship assignment. Feel free to use and modify for learning and development purposes.
-
-🙏 Acknowledgments
-NLTK Team: For comprehensive NLP tools
-
-Scikit-learn Community: For robust ML algorithms
-
-Gradio Team: For intuitive web interface framework
-
-Assignment Provider: For the challenging and educational task
+🙏 **Acknowledgments**
+Thanks to NLTK, Scikit-learn, Gradio teams, and the assignment provider.
