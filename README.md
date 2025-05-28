@@ -82,18 +82,19 @@ ticket_classifier/
 ```
 ---
 
-## 🌐 **Web Interface (Gradio)**
+🌐 **Web Interface (Gradio)**
 
-Provides an interactive way to use the classifier:
+The application provides an interactive web interface built with Gradio for easy interaction with the ticket classification system.
 
-*   **Home Page / About:** Provides an overview of the application and its capabilities.
+*   **Home Page / About:** Provides an overview of the application, its capabilities, and how to use the different features.
     *   `![Gradio - Home Page](./screenshots/Home Page.png)`
-    *   *(If "About Page.png" is distinct and offers more detail, you could add it as well: `![Gradio - About Page](./screenshots/About Page.png)`)*
-*   **Single Ticket Prediction:** Allows users to input a single ticket text for real-time classification and entity extraction. The results, including predicted issue type, urgency, extracted entities, and model confidence, are displayed directly.
+    *   `![Gradio - About Page Information](./screenshots/About Page.png)` *(Describes features and usage)*
+*   **Single Ticket Prediction:** Allows users to input a single ticket text for real-time classification and entity extraction. The results, including predicted issue type, urgency, extracted entities, and model confidence, are displayed directly on the interface.
     *   `![Gradio - Single Ticket Prediction](./screenshots/Single Ticket Prediction.png)`
-*   **Batch Processing:** Enables users to upload a CSV or Excel file containing multiple tickets. The system processes each ticket and provides a downloadable file with the predictions and extracted entities for all tickets.
-    *   `![Gradio - Batch Processing Upload](./screenshots/Batch Processing.png)`
-    *   `![Gradio - Batch Processing Output Example](./screenshots/Output_Batch.png)` *(This shows an example of the output after batch processing)*
+*   **Batch Processing:** Enables users to upload a CSV or Excel file containing multiple tickets. 
+    *   `![Gradio - Batch Processing Upload Interface](./screenshots/Batch Processing.png)`
+    *   The system processes each ticket and provides a downloadable file (typically CSV) containing the original ticket text along with the predictions and extracted entities for all tickets.
+    *   `![Gradio - Example of Batch Processing Output File/Table](./screenshots/Output_Batch.png)` *(Illustrates the structure of the output from batch processing)*
 
 ---
 
