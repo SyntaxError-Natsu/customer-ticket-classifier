@@ -10,6 +10,12 @@ Automated classification of customer support tickets by issue type and urgency, 
 
 ---
 
+## 🎞️ Short Video Walkthrough
+
+*   **[Watch on Youtube](https://youtu.be/CdWe_Q6NL3s) - Full feature walkthrough**
+*   **Summary:** This video provides a comprehensive demonstration of the Customer Support Ticket Classifier project. It covers the initial setup, data preprocessing steps, feature engineering techniques, model training process, entity extraction logic, and an interactive session with the Gradio web application showcasing both single ticket and batch processing capabilities. Key features, design choices, and project challenges are also highlighted.
+---
+
 ## 🚀 **Quick Start**
 
 **1. Prerequisites:**
